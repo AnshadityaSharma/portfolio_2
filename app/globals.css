@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Commit Mono — self-hostable later; CDN woff2 for now (weights 400/500)
+ * ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Commit Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/commit-mono@latest/latin-400-normal.woff2)
+    format("woff2");
+}
+@font-face {
+  font-family: "Commit Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/commit-mono@latest/latin-500-normal.woff2)
+    format("woff2");
+}
+
+/* ------------------------------------------------------------------ *
+ * Design tokens — the whole system. Six colours, three families,
+ * six sizes, two weights. Nothing else.  (brief.md §4)
+ * ------------------------------------------------------------------ */
+@theme {
+  /* colour — the only six */
+  --color-paper: #ffffff; /* page                         */
+  --color-shelf: #f2f2ef; /* demo viewport backing, wells */
+  --color-ink: #12130f; /* primary text                 */
+  --color-graphite: #6b6c66; /* labels, all mono data        */
+  --color-rule: #d8d8d2; /* 1px hairlines                */
+  --color-signal: #2b4cff; /* THE accent — alive only      */
+
+  /* type families */
+  --font-display: "Uncut Sans", var(--font-instrument), "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+  --font-body: var(--font-instrument), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-mono: "Commit Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    monospace;
+
+  /* type scale — 48 / 28 / 18 / 16 / 13 / 11 */
+  --text-display: 48px;
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-title: 28px;
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.015em;
+
+  --text-lead: 18px;
+  --text-lead--line-height: 1.5;
+
+  --text-body: 16px;
+  --text-body--line-height: 1.6;
+
+  --text-meta: 13px;
+  --text-meta--line-height: 1.5;
+  --text-meta--letter-spacing: 0.02em;
+
+  --text-micro: 11px;
+  --text-micro--line-height: 1.4;
+  --text-micro--letter-spacing: 0.06em;
+
+  /* only two weights exist */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* mono is always lowercase, graphite by default */
+.font-mono {
+  text-transform: lowercase;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* visible keyboard focus — never remove, only style */
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* the live-state indicator — the one place --signal pulses */
+.signal-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-signal);
+  flex: 0 0 auto;
+  animation: signalPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes signalPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.7);
+  }
+}
+
+/* honour reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
