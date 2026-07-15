@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   ),
   title: "Anshaditya Sharma — systems + real-time software",
   description:
-    "Six projects, every one of them running live on the page. A matching engine, an evolving-creatures sim, a collaborative canvas, an NLP search tool, a webcam gesture game, and a vision-model rover.",
+    "CS @ VIT Chennai '27. Six projects, each measured against a real benchmark: a matching engine, an evolving-creatures sim, a collaborative canvas, an NLP lecture search, a webcam gesture game, and a VLM-controlled rover.",
 };
 
 export default function RootLayout({

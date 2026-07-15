@@ -1,5 +1,5 @@
 /* Per-project OG image — white cube in 1200×630: paper ground, mono
-   number, display title, one hairline. Same discipline as the site. */
+   number, display title, headline metric, one hairline. */
 
 import { ImageResponse } from "next/og";
 import { getProject, projects } from "@/data/projects";
@@ -20,7 +20,7 @@ export default async function OgImage({
   const p = getProject(slug);
   const title = p?.title ?? "Anshaditya Sharma";
   const number = p?.number ?? "";
-  const metric = p?.metricLine ?? "";
+  const metric = p?.headlineMetric ?? "";
 
   return new ImageResponse(
     (
@@ -37,50 +37,17 @@ export default async function OgImage({
           fontFamily: "monospace",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 24,
-            fontSize: 28,
-            color: "#6B6C66",
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center", gap: 24, fontSize: 28, color: "#6B6C66" }}>
           <span style={{ color: "#12130F" }}>{number}</span>
           <div style={{ flex: 1, height: 1, background: "#D8D8D2" }} />
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div
-              style={{
-                width: 14,
-                height: 14,
-                borderRadius: 7,
-                background: "#2B4CFF",
-              }}
-            />
-            <span style={{ color: "#2B4CFF" }}>running</span>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 20,
-          }}
-        >
-          <div style={{ fontSize: 72, fontWeight: 500, letterSpacing: -1.5 }}>
-            {title}
-          </div>
-          <div style={{ fontSize: 26, color: "#6B6C66" }}>{metric}</div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 24,
-            color: "#6B6C66",
-          }}
-        >
           <span>anshaditya sharma</span>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <div style={{ fontSize: 72, fontWeight: 500, letterSpacing: -1.5 }}>{title}</div>
+          <div style={{ fontSize: 26, color: "#2B4CFF" }}>{metric}</div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 24, color: "#6B6C66" }}>
+          <span>cs @ vit chennai &apos;27</span>
           <span>systems + real-time software</span>
         </div>
       </div>

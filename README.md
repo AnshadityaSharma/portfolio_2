@@ -1,9 +1,15 @@
 # ansh-portfolio
 
-White-cube portfolio: six projects, every one running live on the page.
-Built to `brief.md` — six colour tokens, type scale 48/28/18/16/13/11,
-weights 400/500 only, and `--signal #2B4CFF` reserved exclusively for
-things that are alive.
+White-cube portfolio for Anshaditya Sharma — CS @ VIT Chennai '27, SDE roles.
+Standard structure done carefully: hero → about → skills → six project cards →
+achievements → contact, with a detail page per project that carries the real
+engineering (the problem, the one non-obvious decision + what was rejected,
+metrics labelled with how they were measured, honest limitations).
+
+Design system (see `brief.md` in the parent folder): six colour tokens, type
+scale 48/28/18/16/13/11, weights 400/500 only, sentence case, mono for all
+numbers and labels. Blue `#2B4CFF` is a normal accent, used sparingly on links
+and headings.
 
 ## run
 
@@ -18,33 +24,22 @@ npm run dev
 npx vercel
 ```
 
-Set in the Vercel project:
-
-- `NEXT_PUBLIC_SITE_URL` — the deployed url (for og images)
-- `NEXT_PUBLIC_EXCHANGE_WS_URL` — optional; the exchange's read-only ws
-  feed. **Rate-limit it and confirm it is read-only before going public**
-  (brief.md, open task 2). Without it, slot 01 runs the in-browser engine.
+Set `NEXT_PUBLIC_SITE_URL` to the deployed URL so OG images resolve.
 
 ## things only you can add
 
-- `public/resume.pdf` — the footer links to it
-- `public/demos/rover.mp4` — slot 06's footage; until it exists the slot
-  states honestly that the repo and report are being prepared
-- Uncut Sans woff2s — the display font falls back to Instrument Sans until
-  the files are added (Uncut Sans is a free download from uncut.wtf;
-  drop `UncutSans-Regular.woff2` + `UncutSans-Medium.woff2` in
-  `public/fonts/` and add the two `@font-face` rules in `app/globals.css`)
+- `public/resume.pdf` — already present; replace to update
+- `public/thumbs/<slug>.png` — card thumbnails (exchange, evocreatures,
+  gridspace, lecturefind, hand-cricket, rover). Until added, each card shows a
+  clean shelf-coloured well with the project number — never a broken image.
+- Uncut Sans woff2s — the display font falls back to Instrument Sans until the
+  files land in `public/fonts/` with matching `@font-face` rules in
+  `app/globals.css`. Uncut Sans is a free download from uncut.wtf.
 
-## honesty rules encoded in the build
+## honesty rules (kept from brief.md)
 
-- `data/metrics.ts` — every number sourced from the repos; the
-  EvoCreatures strip is `generations[].best` from the repo's committed
-  `history.json`, not a redrawing
-- slots whose repos publish no metric get **no strip** (gridspace,
-  lecturefind, hand cricket, rover)
-- slot 01's µs/op figure is measured in the visitor's browser with
-  `performance.now()` over a real matching burst — `lib/engine.ts` is a
-  genuine price-time-priority book (same design as the repo: integer
-  ticks, sorted array + fifo levels)
-- hand cricket never auto-requests the webcam; the camera starts only
-  after an explicit click, inside the game's own origin
+- every number is sourced from the repos — nothing invented (`data/projects.ts`)
+- metrics say how they were measured (exchange = the benchmark harness; the
+  evocreatures figures are `history.json`'s committed run)
+- where a repo publishes no benchmark, the page says so rather than inventing one
+- rover states plainly that its repo and report are still being prepared

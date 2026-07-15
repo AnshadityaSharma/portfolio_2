@@ -109,28 +109,6 @@ a {
   color: var(--color-paper);
 }
 
-/* the live-state indicator — the one place --signal pulses */
-.signal-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--color-signal);
-  flex: 0 0 auto;
-  animation: signalPulse 1.6s ease-in-out infinite;
-}
-
-@keyframes signalPulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.3;
-    transform: scale(0.7);
-  }
-}
-
 /* honour reduced motion globally */
 @media (prefers-reduced-motion: reduce) {
   *,

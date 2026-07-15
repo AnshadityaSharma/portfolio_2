@@ -1,114 +1,138 @@
-/* Homepage — the design's 1a screen: cold-open hero (project 01's live
-   order book, full bleed, before any text), then identity, then the six
-   project blocks in a single column. */
-
-import CameraGate from "@/components/CameraGate";
-import ExchangeDemo from "@/components/ExchangeDemo";
 import Footer from "@/components/Footer";
-import LazyEmbed from "@/components/LazyEmbed";
-import ProjectSlot from "@/components/ProjectSlot";
-import Rail from "@/components/Rail";
+import Nav from "@/components/Nav";
+import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
-import RoverVideo from "@/components/RoverVideo";
 import { projects } from "@/data/projects";
-import type { SlotStatus } from "@/lib/liveStore";
 
-function demoFor(slug: string): React.ReactNode {
-  const p = projects.find((x) => x.slug === slug)!;
-  switch (p.demo) {
-    case "engine":
-      return <ExchangeDemo />;
-    case "iframe":
-      return (
-        <LazyEmbed slug={p.slug} src={p.demoUrl!} title={p.title} height={560} />
-      );
-    case "camera":
-      return <CameraGate slug={p.slug} src={p.demoUrl!} title={p.title} height={560} />;
-    case "video":
-      return <RoverVideo slug={p.slug} height={560} />;
-    case "local":
-      return (
-        <div className="relative flex w-full flex-col items-center justify-center gap-3 bg-shelf p-6 text-center" style={{ height: "min(400px, 60vh)" }}>
-          <div className="font-mono text-meta text-graphite">
-            ● local only — fastapi + react, not yet hosted
-          </div>
-          <a
-            href={p.repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-b border-ink pb-0.5 text-body text-ink"
-          >
-            run it from the repo ↗
-          </a>
-        </div>
-      );
-  }
+const skills: { group: string; items: string[] }[] = [
+  { group: "languages", items: ["Java", "Python", "C++", "C", "JavaScript", "TypeScript", "Go", "SQL"] },
+  { group: "frameworks", items: ["React", "Node", "Express", "FastAPI", "TensorFlow", "NLTK", "NumPy"] },
+  { group: "systems", items: ["MongoDB", "Redis", "Docker", "GitHub Actions", "WebSockets", "REST APIs"] },
+  { group: "embedded", items: ["ESP32", "Arduino", "Embedded C++", "Sensor integration"] },
+];
+
+const achievements: string[] = [
+  "178 LeetCode problems solved (Java / C++)",
+  "2-star CodeChef",
+  "Multiple hackathon wins in real-time systems and hardware-software tracks",
+  "Cultural Lead — UP Cultural Club",
+  "Ran peer-learning sessions on DSA, Git and API design",
+];
+
+const heroLinks: { label: string; href: string; external?: boolean }[] = [
+  { label: "github ↗", href: "https://github.com/AnshadityaSharma", external: true },
+  { label: "leetcode ↗", href: "https://leetcode.com/u/Anshaditya_sharma/", external: true },
+  { label: "email ↗", href: "mailto:anshadityasharma23@gmail.com" },
+  { label: "resume ↗", href: "/resume.pdf", external: true },
+];
+
+function Label({ children }: { children: React.ReactNode }) {
+  return <div className="mb-6 font-mono text-micro text-graphite">{children}</div>;
 }
 
-const INITIAL_STATUS: Record<string, SlotStatus> = {
-  exchange: "running",
-  evocreatures: "connecting",
-  gridspace: "connecting",
-  lecturefind: "local",
-  "hand-cricket": "gated",
-  rover: "recorded",
-};
-
 export default function Home() {
-  const [first, ...rest] = projects;
   return (
-    <div className="mx-auto max-w-[1080px] px-6 py-10 sm:px-10 md:py-14">
-      <div className="flex flex-col gap-8 md:flex-row md:gap-11">
-        <Rail />
-
-        <main className="min-w-0 flex-1">
-          {/* cold-open: project 01's demo IS the hero — no text first */}
-          <div className="bg-shelf">
-            <ExchangeDemo height={660} />
-          </div>
-
-          {/* identity, only after the book */}
-          <Reveal>
-            <header className="py-24 md:py-[104px]">
-              <h1 className="font-display text-title font-medium text-ink">
-                anshaditya sharma
-              </h1>
-              <p className="mt-2.5 font-mono text-meta text-graphite">
-                cs @ vit chennai &apos;27 · systems + real-time software
-              </p>
-              <p className="mt-8 max-w-[560px] text-lead text-graphite">
-                Six projects. Every one of them runs — live in this page, or
-                as footage of real hardware. Nothing is a screenshot, and
-                every number on this page is measured, not written.
-              </p>
-            </header>
-          </Reveal>
-
-          {/* project 01 — its demo is the hero above */}
-          <Reveal>
-            <ProjectSlot
-              project={first}
-              demoAbove
-              initialStatus={INITIAL_STATUS[first.slug]}
-            />
-          </Reveal>
-
-          {/* projects 02–06 */}
-          <div className="mt-28 flex flex-col gap-28 md:mt-36 md:gap-36">
-            {rest.map((p) => (
-              <Reveal key={p.slug}>
-                <ProjectSlot
-                  project={p}
-                  demo={demoFor(p.slug)}
-                  initialStatus={INITIAL_STATUS[p.slug]}
-                />
-              </Reveal>
+    <>
+      <Nav />
+      <main className="mx-auto max-w-[960px] px-6 sm:px-8">
+        {/* 1 — hero */}
+        <section className="pt-20 pb-24 md:pt-28 md:pb-28">
+          <h1 className="max-w-[15ch] font-display text-display font-medium text-ink">
+            I build systems that have to run in real time.
+          </h1>
+          <p className="mt-6 font-mono text-meta text-graphite">
+            cs @ vit chennai &apos;27 · systems + real-time software
+          </p>
+          <p className="mt-5 max-w-[560px] text-lead text-graphite">
+            Anshaditya Sharma — a matching engine measured in nanoseconds,
+            evolution you can watch converge, and a rover that sees and drives.
+            I&apos;m after SDE roles at product companies.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-meta">
+            {heroLinks.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target={l.external ? "_blank" : undefined}
+                rel={l.external ? "noopener noreferrer" : undefined}
+                className="text-signal hover:text-ink"
+              >
+                {l.label}
+              </a>
             ))}
           </div>
+        </section>
 
+        {/* 2 — about */}
+        <Reveal>
+          <section id="about" className="scroll-mt-20 border-t border-rule py-16">
+            <Label>about</Label>
+            <div className="max-w-[640px] space-y-4 text-body text-ink">
+              <p>
+                I&apos;m a B.Tech Computer Science student at VIT Chennai
+                (2023–2027, CGPA 8.15/10). I build systems where timing is the
+                hard part — engines measured in microseconds, real-time
+                collaborative state, vision loops closing on hardware.
+              </p>
+              <p className="text-graphite">
+                The through-line across everything here: each project runs, and
+                each one measures itself. Where a project has a real benchmark I
+                show it and say how it was taken; where it doesn&apos;t, I say
+                that too. I&apos;m looking for SDE roles at product companies.
+              </p>
+            </div>
+          </section>
+        </Reveal>
+
+        {/* 3 — skills */}
+        <Reveal>
+          <section id="skills" className="scroll-mt-20 border-t border-rule py-16">
+            <Label>skills</Label>
+            <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+              {skills.map((s) => (
+                <div key={s.group}>
+                  <div className="font-mono text-meta text-signal">{s.group}</div>
+                  <div className="mt-2 text-body text-ink">
+                    {s.items.join(" · ")}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+
+        {/* 4 — projects */}
+        <Reveal>
+          <section id="work" className="scroll-mt-20 border-t border-rule py-16">
+            <Label>work · six projects</Label>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {projects.map((p) => (
+                <ProjectCard key={p.slug} project={p} />
+              ))}
+            </div>
+          </section>
+        </Reveal>
+
+        {/* 5 — achievements */}
+        <Reveal>
+          <section id="achievements" className="scroll-mt-20 border-t border-rule py-16">
+            <Label>achievements</Label>
+            <ul className="max-w-[640px] space-y-3">
+              {achievements.map((a) => (
+                <li key={a} className="flex gap-3 text-body text-ink">
+                  <span className="mt-1 font-mono text-micro text-signal">—</span>
+                  <span>{a}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </Reveal>
+
+        {/* 6 — contact */}
+        <Reveal>
           <Footer />
-        </main>
-      </div>
-    </div>
+        </Reveal>
+      </main>
+    </>
   );
 }
