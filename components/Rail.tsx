@@ -13,7 +13,7 @@ const SECTIONS: { id: string; label: string }[] = [
   { id: "build", label: "what i build" },
   { id: "work", label: "work" },
   { id: "stack", label: "stack" },
-  { id: "awards", label: "awards" },
+  { id: "trajectory", label: "trajectory" },
   { id: "contact", label: "contact" },
 ];
 

@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import Rail from "@/components/Rail";
 import Reveal from "@/components/Reveal";
@@ -54,11 +53,34 @@ const stack: { group: string; items: string[] }[] = [
   { group: "frontend", items: ["React", "Three.js", "Vite", "Chrome extensions (MV3)"] },
 ];
 
-const achievements: string[] = [
-  "2-star CodeChef",
-  "Multiple hackathon wins in real-time systems and hardware-software tracks",
-  "Cultural Lead — UP Cultural Club",
-  "Ran peer-learning sessions on DSA, Git and API design",
+const trajectory: { key: string; head: string; detail: string }[] = [
+  {
+    key: "2023–2027",
+    head: "B.Tech CSE, VIT Chennai",
+    detail: "DSA, DBMS, OS, networks, ML, architecture, applied cryptography",
+  },
+  {
+    key: "final year",
+    head: "Semi-autonomous VLM rover",
+    detail:
+      "ESP32-CAM + Gemini Vision, live frame interpretation and obstacle avoidance",
+  },
+  {
+    key: "leadership",
+    head: "Hackathon wins in real-time systems and hardware-software tracks",
+    detail: "Cultural Lead, UP Cultural Club",
+  },
+  {
+    key: "practice",
+    head: "178 LeetCode problems, 2-star CodeChef",
+    detail: "peer sessions on DSA, Git workflows, API design",
+  },
+];
+
+const contactLinks: { label: string; href: string; external?: boolean }[] = [
+  { label: "github ↗", href: "https://github.com/AnshadityaSharma", external: true },
+  { label: "leetcode ↗", href: "https://leetcode.com/u/Anshaditya_sharma", external: true },
+  { label: "resume ↗", href: "/resume.pdf", external: true },
 ];
 
 const heroLinks: { label: string; href: string; external?: boolean }[] = [
@@ -193,24 +215,58 @@ export default function Home() {
           </section>
         </Reveal>
 
-        {/* achievements */}
+        {/* trajectory */}
         <Reveal>
-          <section id="awards" className="scroll-mt-14 border-t border-rule py-16">
-            <Label>awards &amp; activities</Label>
-            <ul className="max-w-[640px] space-y-3">
-              {achievements.map((a) => (
-                <li key={a} className="flex gap-3 text-body text-ink">
-                  <span className="mt-1 font-mono text-micro text-signal">—</span>
-                  <span>{a}</span>
-                </li>
+          <section id="trajectory" className="scroll-mt-14 border-t border-rule py-16">
+            <Label>trajectory</Label>
+            <div className="flex flex-col border-y border-rule">
+              {trajectory.map((t) => (
+                <div
+                  key={t.key}
+                  className="grid gap-x-8 gap-y-1 border-b border-rule py-5 last:border-b-0 sm:grid-cols-[130px_1fr]"
+                >
+                  <div className="font-mono text-meta text-graphite">{t.key}</div>
+                  <div className="text-body text-ink">
+                    {t.head}
+                    <span className="text-graphite"> — {t.detail}</span>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
         </Reveal>
 
-        {/* contact */}
+        {/* contact — a real section */}
         <Reveal>
-          <Footer />
+          <section id="contact" className="scroll-mt-14 border-t border-rule py-16">
+            <Label>contact</Label>
+            <p className="max-w-[560px] text-lead text-graphite">
+              Open to SDE roles and internships at product companies. The
+              fastest way to reach me is email.
+            </p>
+            <a
+              href="mailto:anshadityasharma23@gmail.com"
+              className="mt-6 inline-block break-all font-display text-lead font-medium text-ink hover:text-signal sm:text-title"
+            >
+              anshadityasharma23@gmail.com
+            </a>
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-meta">
+              {contactLinks.map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  target={l.external ? "_blank" : undefined}
+                  rel={l.external ? "noopener noreferrer" : undefined}
+                  className="text-signal hover:text-ink"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+            <div className="mt-16 font-mono text-micro text-graphite">
+              anshaditya sharma · chennai, in
+            </div>
+          </section>
         </Reveal>
       </main>
     </div>
