@@ -1,10 +1,10 @@
 "use client";
 
-/* One project card: thumbnail well → number + title → one-liner →
-   headline metric in mono → links. The thumbnail is a shelf-coloured
-   well with the mono number; a real image at /thumbs/<slug>.png covers
-   it when present, and hides itself cleanly if the file is missing, so
-   there are never broken-image icons before the user adds art. */
+/* One project block: thumbnail → number + title → one-liner → headline
+   metric in mono → links. The thumbnail is a shelf-coloured well; a real
+   image at /thumbs/<slug>.png covers it when present and hides itself
+   cleanly if missing, so there are never broken-image icons before the
+   real art is added. */
 
 import { useState } from "react";
 import Link from "next/link";
@@ -20,12 +20,16 @@ export default function ProjectCard({ project }: { project: Project }) {
         className="relative block aspect-[16/10] w-full overflow-hidden bg-shelf"
         aria-label={`${project.title} — detail`}
       >
-        {/* placeholder always underneath */}
-        <span className="pointer-events-none absolute left-4 top-3 font-mono text-meta text-graphite">
+        {/* placeholder underneath: big faint number + tiny caption */}
+        <span
+          className="pointer-events-none absolute inset-0 flex items-center justify-center font-mono font-medium text-rule"
+          style={{ fontSize: "clamp(56px, 12vw, 92px)" }}
+          aria-hidden="true"
+        >
           {project.number}
         </span>
-        <span className="pointer-events-none absolute bottom-3 right-4 font-mono text-micro text-graphite">
-          thumbnail
+        <span className="pointer-events-none absolute bottom-3 left-4 font-mono text-micro text-graphite">
+          {project.slug}.png
         </span>
         {imgOk && (
           // eslint-disable-next-line @next/next/no-img-element

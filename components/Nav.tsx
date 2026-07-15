@@ -21,8 +21,8 @@ export default function Nav({ solid = false }: { solid?: boolean }) {
           <Link href="/#about" className="hidden hover:text-ink sm:inline">
             about
           </Link>
-          <Link href="/#skills" className="hidden hover:text-ink sm:inline">
-            skills
+          <Link href="/#stack" className="hidden hover:text-ink sm:inline">
+            stack
           </Link>
           <a
             href="/resume.pdf"
