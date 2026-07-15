@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import LazyEmbed from "@/components/LazyEmbed";
 import ProjectSlot from "@/components/ProjectSlot";
 import Rail from "@/components/Rail";
+import Reveal from "@/components/Reveal";
 import RoverVideo from "@/components/RoverVideo";
 import { projects } from "@/data/projects";
 import type { SlotStatus } from "@/lib/liveStore";
@@ -67,36 +68,41 @@ export default function Home() {
           </div>
 
           {/* identity, only after the book */}
-          <header className="py-24 md:py-[104px]">
-            <h1 className="font-display text-title font-medium text-ink">
-              anshaditya sharma
-            </h1>
-            <p className="mt-2.5 font-mono text-meta text-graphite">
-              cs @ vit chennai &apos;27 · systems + real-time software
-            </p>
-            <p className="mt-8 max-w-[560px] text-lead text-graphite">
-              Six projects. Every one of them runs — live in this page, or as
-              footage of real hardware. Nothing is a screenshot, and every
-              number on this page is measured, not written.
-            </p>
-          </header>
+          <Reveal>
+            <header className="py-24 md:py-[104px]">
+              <h1 className="font-display text-title font-medium text-ink">
+                anshaditya sharma
+              </h1>
+              <p className="mt-2.5 font-mono text-meta text-graphite">
+                cs @ vit chennai &apos;27 · systems + real-time software
+              </p>
+              <p className="mt-8 max-w-[560px] text-lead text-graphite">
+                Six projects. Every one of them runs — live in this page, or
+                as footage of real hardware. Nothing is a screenshot, and
+                every number on this page is measured, not written.
+              </p>
+            </header>
+          </Reveal>
 
           {/* project 01 — its demo is the hero above */}
-          <ProjectSlot
-            project={first}
-            demoAbove
-            initialStatus={INITIAL_STATUS[first.slug]}
-          />
+          <Reveal>
+            <ProjectSlot
+              project={first}
+              demoAbove
+              initialStatus={INITIAL_STATUS[first.slug]}
+            />
+          </Reveal>
 
           {/* projects 02–06 */}
           <div className="mt-28 flex flex-col gap-28 md:mt-36 md:gap-36">
             {rest.map((p) => (
-              <ProjectSlot
-                key={p.slug}
-                project={p}
-                demo={demoFor(p.slug)}
-                initialStatus={INITIAL_STATUS[p.slug]}
-              />
+              <Reveal key={p.slug}>
+                <ProjectSlot
+                  project={p}
+                  demo={demoFor(p.slug)}
+                  initialStatus={INITIAL_STATUS[p.slug]}
+                />
+              </Reveal>
             ))}
           </div>
 
